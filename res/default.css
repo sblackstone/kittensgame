@@ -848,9 +848,15 @@ label:hover {
 -----------------------------------*/
 
 #optionsDiv {
-    overflow-y: scroll;
-    height: 440px;
-    margin-top:-220px;
+    /* Size to the content instead of a fixed height, but cap it & scroll if the
+       content (e.g. dev mode with many options) would overflow the screen. */
+    height: auto;
+    max-height: 440px;
+    overflow-y: auto;
+    /* The dialog is positioned with top:50%; translate up by half its own (now
+       variable) height to stay vertically centered regardless of content height. */
+    margin-top: 0;
+    transform: translateY(-50%);
 }
 
 #optionsDiv input[type="checkbox"] {
