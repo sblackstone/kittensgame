@@ -307,10 +307,24 @@ dojo.declare("com.nuclearunicorn.game.ui.tab.SettingsTab", com.nuclearunicorn.ga
 	 * Renders the checkboxes for EACH option.
 	 * @param container - Included just to make the signature of this function consistent with all other render functions.
 	 */
+	//Holds the dojo.connect handles for any tooltips attached during render, so they
+	// can be disconnected on the next render (the options window re-renders every time
+	// it's opened/closed) instead of leaking listeners on now-destroyed DOM nodes.
+	tooltipHandles: null,
+
 	render: function(container) {
 		//Store references to the DOM elements inside which the options will go:
 		var divNormal = $("#booleanOptionsNormal")[0];
 		var divExtra = $("#booleanOptionsExtra")[0];
+
+		//Disconnect tooltip listeners from the previous render before we throw away
+		// (dojo.empty) the nodes they were attached to.
+		if (this.tooltipHandles) {
+			this.tooltipHandles.forEach(function(handle) {
+				dojo.disconnect(handle);
+			});
+		}
+		this.tooltipHandles = [];
 
 		dojo.empty(divNormal);
 		dojo.empty(divExtra);
@@ -355,9 +369,11 @@ dojo.declare("com.nuclearunicorn.game.ui.tab.SettingsTab", com.nuclearunicorn.ga
 				style: "cursor: help;"
 			}, container);
 			var tooltipHTML = setting.tooltip;
-			UIUtils.attachTooltip(this.game, hint, 0, 20, function() {
+			var handles = UIUtils.attachTooltip(this.game, hint, 0, 20, function() {
 				return "<div style='max-width: 250px;'>" + tooltipHTML + "</div>";
 			});
+			//Track the listeners so render() can disconnect them on the next render.
+			this.tooltipHandles = this.tooltipHandles.concat(handles);
 		}
 		dojo.create("br", {}, container); //Put each option on a separate line.
 

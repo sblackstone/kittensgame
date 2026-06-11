@@ -2677,14 +2677,20 @@ UIUtils = {
 			}
 		};
 
-		dojo.connect(container, "onmouseover", this, showTooltip);
+		// Collect the connection handles so callers can dojo.disconnect() them later
+		// (e.g. tooltips attached to elements that get re-rendered/destroyed, to avoid
+		// leaking listeners). Note: the return value used to be htmlProvider, but the
+		// only callers that store it just use it as a truthiness guard, so returning
+		// the handles array instead is backwards-compatible.
+		var handles = [];
+		handles.push(dojo.connect(container, "onmouseover", this, showTooltip));
 
-		dojo.connect(container, "onmouseout", this, function(){
+		handles.push(dojo.connect(container, "onmouseout", this, function(){
 			game.tooltipUpdateFunc = null;
 			dojo.style(tooltip, "display", "none");
-		});
-		
-		dojo.connect(container, "onkeydown", this, function(e){
+		}));
+
+		handles.push(dojo.connect(container, "onkeydown", this, function(e){
 			if (e.code == "Space"){
 				e.stopPropagation();
 				e.preventDefault();
@@ -2692,8 +2698,8 @@ UIUtils = {
 				showTooltip();
 				tooltip.focus();
 			}
-		});
+		}));
 
-		return htmlProvider;
+		return handles;
 	}
 };
