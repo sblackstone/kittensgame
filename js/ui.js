@@ -364,7 +364,7 @@ dojo.declare("classes.ui.DesktopUI", classes.ui.UISystem, {
         });
 
         UIUtils.attachTooltip(game, $("#schemeTip")[0], 0, 20, function() {
-            return "<div style='max-width: 250px;'>" + $I("ui.option.scheme.tip") + "</div>";
+            return "<div class='option-tooltip'>" + $I("ui.option.scheme.tip") + "</div>";
         });
     },
 

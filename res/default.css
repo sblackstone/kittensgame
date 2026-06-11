@@ -436,6 +436,12 @@ td.resLimitWarn, .res-cell.resLimitWarn  {
     pointer-events: none;
 }
 
+/* Wrapper for plain-text option tooltips (e.g. the "(?)" hints in the options
+   window), so long text wraps onto multiple lines instead of running off-screen. */
+.option-tooltip {
+    max-width: 250px;
+}
+
 #tooltip.tooltip-in-right-column {
     min-height: initial !important;
     max-height: initial !important;

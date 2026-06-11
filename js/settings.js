@@ -370,7 +370,7 @@ dojo.declare("com.nuclearunicorn.game.ui.tab.SettingsTab", com.nuclearunicorn.ga
 			}, container);
 			var tooltipHTML = setting.tooltip;
 			var handles = UIUtils.attachTooltip(this.game, hint, 0, 20, function() {
-				return "<div style='max-width: 250px;'>" + tooltipHTML + "</div>";
+				return "<div class='option-tooltip'>" + tooltipHTML + "</div>";
 			});
 			//Track the listeners so render() can disconnect them on the next render.
 			this.tooltipHandles = this.tooltipHandles.concat(handles);
