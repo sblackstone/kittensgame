@@ -860,6 +860,12 @@ label:hover {
 #optionsDiv input[type="checkbox"] + label:before {
     content: "·";
 	display: inline-block;
+	/* Fixed width + centering so the indicator occupies the same horizontal space
+	   regardless of glyph or font-size (which vary by checked state & by theme),
+	   keeping every option's label text aligned in a column. */
+	width: 18px;
+	text-align: center;
+	box-sizing: border-box;
 	font: 16px sans-serif;
 	margin: 0px 6px 0px 2px;
 }

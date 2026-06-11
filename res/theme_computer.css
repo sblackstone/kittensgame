@@ -202,6 +202,12 @@ body.scheme_computer {
 	content: "\25FD"; /* WHITE MEDIUM SMALL SQUARE	*/
 	font: 18px sans-serif;
 }
+/* Tighten the gap between option lines by ~2px. The line height is otherwise driven
+   by the 18px checkbox glyph above (normal line-height ≈ 21px), so pin it 2px lower. */
+.scheme_computer #optionsDiv input[type="checkbox"] + label,
+.scheme_computer #optionsDiv input[type="checkbox"] + label:before {
+	line-height: 19px;
+}
 .scheme_computer .dialog input[type="button"] {
 	margin-left: 7px;
 	margin-bottom: 5px;
