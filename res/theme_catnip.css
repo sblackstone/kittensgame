@@ -17,6 +17,11 @@
 /* ******************* GAME ******************* */
 /* ******************************************** */
 body.scheme_catnip {
+	background: radial-gradient(ellipse at left top, rgba(235, 244, 195, 1) 0%, rgba(207, 227, 142, 1) 100%);
+}
+/* The grass texture image is layered on only when background images are enabled, so the
+   "Hide background images" option can turn it off (gated via the with_background_image class). */
+body.scheme_catnip.with_background_image {
 	background: fixed repeat-x left -850px bottom url('img/theme_catnip_texture.png'),
                 radial-gradient(ellipse at left top, rgba(235, 244, 195, 1) 0%, rgba(207, 227, 142, 1) 100%);
 }
