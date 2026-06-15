@@ -7,10 +7,14 @@ body.scheme_grassy {
 	font-size: 11pt;
 
 	background-color: #C6EBA1;
-	background-image: url("img/grass_band.png"); /* source: http://northwaygames.com/wp-content/uploads/band.png */
 	background-repeat: repeat-x;
 	background-attachment: fixed;
 	background-position: center bottom -50px;
+}
+/* The grass backdrop is layered on only when background images are enabled, so the
+   "Hide background images" option can turn it off (gated via with_background_image). */
+body.scheme_grassy.with_background_image {
+	background-image: url("img/grass_band.png"); /* source: http://northwaygames.com/wp-content/uploads/band.png */
 }
 
 .scheme_grassy #topBar > div:first-child > span:last-of-type::after {

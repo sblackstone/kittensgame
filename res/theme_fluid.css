@@ -19,10 +19,16 @@ body.scheme_fluid,
 .scheme_fluid .help,
 .scheme_fluid .dialog {
 	background-color: #292728;
-	background-image: url('img/theme_fluid_background.png');
 	background-repeat: repeat;
 	background-attachment: fixed;
 	background-position: center;
+}
+/* Gate the page backdrop on with_background_image so "Hide background images" can turn
+   it off. Dialogs keep the texture (like other themes' dialog decorations). */
+.scheme_fluid .help,
+.scheme_fluid .dialog,
+body.scheme_fluid.with_background_image {
+	background-image: url('img/theme_fluid_background.png');
 }
 .scheme_fluid #game,
 .scheme_fluid #loadingContainer {
