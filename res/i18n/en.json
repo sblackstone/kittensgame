@@ -1847,8 +1847,11 @@
     "ui.kgnet.online": "Online",
     "ui.kgnet.save.current": "current",
     "ui.kgnet.save.save": "↑ Save",
+    "ui.kgnet.save.save.tooltip": "Upload your current game save to the server. This will overwrite your old cloud save.",
     "ui.kgnet.save.load": "↓ Load",
+    "ui.kgnet.save.load.tooltip": "Download a cloud save and apply it to your game. Your current data will be lost.",
     "ui.kgnet.sync": "Sync cloud saves",
+    "ui.kgnet.sync.tooltip": "Fetch the latest information about your cloud saves from the server. This is a safe operation and it won't change any data.",
     "ui.kgnet.instructional": "<- Click this link to start. After data loads, click on the 'Create save'.",
 
     "ui.toggle.researched": "Toggle Researched",

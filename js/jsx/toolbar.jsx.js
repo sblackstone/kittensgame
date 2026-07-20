@@ -457,6 +457,24 @@ WCloudSaveRecord = React.createClass({
         return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
     },
 
+    //Use the game's own tooltip system (like the toolbar icons) instead of
+    //native title= tooltips. The desktop UI update loop hides a custom tooltip
+    //once its owning node leaves the DOM, so auto-closing the menu after a
+    //save/load can't strand a tooltip on the page. (A native title tooltip gets
+    //no mouseout when its element is removed, so it stays stuck.)
+    componentDidMount: function(){
+        var game = this.props.game;
+        //saveLink only renders for the active save; loadLink is always present.
+        if (this.refs.saveLink) {
+            UIUtils.attachTooltip(game, React.findDOMNode(this.refs.saveLink), 18, 0, function(){
+                return $I("ui.kgnet.save.save.tooltip");
+            });
+        }
+        UIUtils.attachTooltip(game, React.findDOMNode(this.refs.loadLink), 18, 0, function(){
+            return $I("ui.kgnet.save.load.tooltip");
+        });
+    },
+
     render: function(){
         var game = this.props.game;
         var save = this.props.save;
@@ -521,8 +539,8 @@ WCloudSaveRecord = React.createClass({
             ),
             $r("div", {className:"save-record-cell"}, self.bytesToSize(save.size)),
             isActiveSave && $r("a", {
+                ref: "saveLink",
                 className: "link",
-                title: "Upload your current game save to the server (this will owerwrite your old cloud save)",
                 onClick: function(e){
                     e.stopPropagation();
                     game.ui.confirm("[S]ave", "This will override [SERVER] save. Y/N", function(){
@@ -531,8 +549,8 @@ WCloudSaveRecord = React.createClass({
                     });
                 }}, $I("ui.kgnet.save.save")),
             $r("a", {
+                ref: "loadLink",
                 className: "link",
-                title: "Download a cloud save and apply it to your game (your current data will be lost)",
                 onClick: function(e){
                     e.stopPropagation();
                     game.ui.confirm("[L]oad", "This will override [LOCAL] save. Y/N", function(){
@@ -581,6 +599,17 @@ WCloudSaves = React.createClass({
     getInitialState: function(){
         return {
             isLoading: false
+        }
+    },
+
+    //Same rationale as WCloudSaveRecord: a self-cleaning game tooltip instead
+    //of a native title=, so closing the menu can't strand it. render() returns
+    //null when logged out, so guard the ref.
+    componentDidMount: function(){
+        if (this.refs.syncLink) {
+            UIUtils.attachTooltip(this.props.game, React.findDOMNode(this.refs.syncLink), 18, 0, function(){
+                return $I("ui.kgnet.sync.tooltip");
+            });
         }
     },
 
@@ -635,8 +664,8 @@ WCloudSaves = React.createClass({
                 ]),
                 $r("div", {className:"save-record"},[
                     $r("a", {
+                        ref: "syncLink",
                         className: "link",
-                        title: "Fetch the latest information about your cloud saves from the serer. This is a safe operation and it wont change any data.",
                         onClick: function(e){
                             e.stopPropagation();
                             self.setState({isLoading: true})
